@@ -19,11 +19,5 @@ struct PCB {
 
 //process3
 #define l 10
-
-void CTRLC(int sig) {
-    if (sig == SIGINT) {
-        printf("CTRL+C.\n");
-        exit(0);
-    }
-}
+void CTRLC(int sig);
 #endif

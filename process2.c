@@ -3,11 +3,18 @@
 #define m 2
 #define n 2
 
+void CTRLC(int sig) {
+    if (sig == SIGINT) {
+        printf("CTRL+C.\n");
+        sleep(5);
+    }
+}
+
 int main()
 {
     int A[m][n], B[m][n], C[m][n];
     int i, j;
-char c = ' ';
+    char c = ' ';
 
     srand(time(NULL));
     for (i = 0; i < m; i++)
@@ -67,9 +74,10 @@ char c = ' ';
             }
             printf("\n");
         }
-if(kbhit()) {
-         c = getch();
-      }
+        if (kbhit())
+        {
+            c = getch();
+        }
     }
     return 0;
 }

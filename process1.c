@@ -1,7 +1,12 @@
 #include "process.h"
 
 
-
+void CTRLC(int sig) {
+    if (sig == SIGINT) {
+        printf("CTRL+C.\n");
+        exit(0);
+    }
+}
 
 int main()
 {
