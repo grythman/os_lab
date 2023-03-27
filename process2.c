@@ -7,6 +7,7 @@ int main()
 {
     int A[m][n], B[m][n], C[m][n];
     int i, j;
+char c = ' ';
 
     srand(time(NULL));
     for (i = 0; i < m; i++)
@@ -56,7 +57,7 @@ int main()
         printf("\n");
     }
     signal(SIGINT, CTRLC);
-    while (1)
+    while (c != 27)
     {
         for (i = 0; i < m; i++)
         {
@@ -66,6 +67,9 @@ int main()
             }
             printf("\n");
         }
+if(kbhit()) {
+         c = getch();
+      }
     }
     return 0;
 }
