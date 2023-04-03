@@ -1,4 +1,4 @@
-# os_lab2
+# os_lab
 Lab 2: 
 
 Process 1 
