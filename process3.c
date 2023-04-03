@@ -1,8 +1,7 @@
-
 #include "process.h"
 
 
-int main()
+void process3()
 {
     char str[l + 1];
     int count = 0;
@@ -29,5 +28,4 @@ int main()
     {
         printf("temdegt mur dotor %d shirheg ijil useg ollo.\n", count);
     }
-    return 0;
 }

@@ -10,7 +10,7 @@ void CTRLC(int sig) {
     }
 }
 
-int main()
+void process2()
 {
     int A[m][n], B[m][n], C[m][n];
     int i, j;
@@ -79,5 +79,4 @@ int main()
             c = getch();
         }
     }
-    return 0;
 }

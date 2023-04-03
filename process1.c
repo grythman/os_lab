@@ -8,7 +8,7 @@ void CTRLC(int sig) {
     }
 }
 
-int main()
+void process1()
 {
     int n = 10, a[n], i, j, temp;
     srand(time(NULL)); 
@@ -41,5 +41,4 @@ int main()
     {
         printf("Hello World\n");
     }
-    return 0;
 }
