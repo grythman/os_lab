@@ -48,6 +48,4 @@ Process 3
  
 
 Process Control Block-/PCB/ ne daraah baidlaar zarlagdana.  
-
- 
-
+context switch
