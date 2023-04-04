@@ -1,8 +1,9 @@
 #include "process.h"
 
-
-void CTRLC(int sig) {
-    if (sig == SIGINT) {
+void CTRLC(int sig)
+{
+    if (sig == SIGINT)
+    {
         printf("CTRL+C.\n");
         exit(0);
     }
@@ -11,7 +12,7 @@ void CTRLC(int sig) {
 void process1()
 {
     int n = 10, a[n], i, j, temp;
-    srand(time(NULL)); 
+    srand(time(NULL));
     for (i = 0; i < n; i++)
     {
         a[i] = rand() % n;
@@ -37,8 +38,20 @@ void process1()
     }
     printf("\n");
     signal(SIGINT, CTRLC);
-    while(1)
+    while (1)
     {
-        printf("Hello World\n");
+        processes[0].pcount++;
+        printf("Process 1 running (count = %d)\n", processes[0].pcount);
+
+        srand(time(NULL));
+        int rand_num = rand() % 100;
+
+        if (rand_num % 2 == 0)
+        {
+            processes[0].state = 0;
+            processes[1].state = 1;
+            running_process = 1;
+            break;
+        }
     }
 }

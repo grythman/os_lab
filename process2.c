@@ -3,8 +3,10 @@
 #define m 2
 #define n 2
 
-void CTRLC(int sig) {
-    if (sig == SIGINT) {
+void CTRLC(int sig)
+{
+    if (sig == SIGINT)
+    {
         printf("CTRL+C.\n");
         sleep(5);
     }
@@ -76,7 +78,22 @@ void process2()
         }
         if (kbhit())
         {
-            c = getch();
+            c = getchar();
+            printf("Key pressed: %c\n", c);
+            sleep(5);
+        }
+        processes[1].pcount++;
+        printf("Process 2 running (count = %d)\n", processes[1].pcount);
+
+        srand(time(NULL));
+        int rand_num = rand() % 100;
+
+        if (rand_num % 2 == 0)
+        {
+            processes[1].state = 0;
+            processes[2].state = 1;
+            running_process = 2;
+            break;
         }
     }
 }
