@@ -49,3 +49,21 @@ Process 3
 
 Process Control Block-/PCB/ ne daraah baidlaar zarlagdana.  
 context switch
+
+Seminar No.3:
+
+Theme: “Context Switching”
+
+ 	
+     
+
+          Process 1	Process 2  	Process 3
+Timer  	10 c	5 c	3c
+
+Priority	I	II	III
+
+
+
+Process ne Ready -> Running tuluvt ajillana
+
+ 
