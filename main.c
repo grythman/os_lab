@@ -21,7 +21,7 @@ int main()
     processes[2].pcount = 0;
     processes[2].nextPCB = 0;
 
-    signal(SIGALRM, context - switch);
+    signal(SIGALRM, context_switch);
 
     struct itimerval timer;
     timer.it_value.tv_sec = 1;
@@ -34,8 +34,9 @@ int main()
 
     while (1)
     {
-        printf("hiih uildlee songono uu. \n")
-            printf("1. Process1, 2. Process2, 3. Process3 , 4. Context-Switching\n");
+        printf("hiih uildlee songono uu. \n");
+        printf("1. Process1, 2. Process2, 3. Process3 , 4. Context-Switching\n");
+        int t;
         scanf("%d", &t);
         switch (t)
         {
@@ -49,7 +50,7 @@ int main()
             process3();
             break;
         case 4:
-            context - switch ();
+            context_switch ();
             break;
         default:
             printf("Buruu songolt!");
