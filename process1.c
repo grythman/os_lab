@@ -1,8 +1,8 @@
 #include "process.h"
 
-void CTRLC(int sig)
+void ctrl_c()
 {
-    if (sig == SIGINT)
+    if (27 == )
     {
         printf("CTRL+C.\n");
         exit(0);
@@ -37,7 +37,7 @@ void process1()
         printf("%d ", a[i]);
     }
     printf("\n");
-    signal(SIGINT, CTRLC);
+    signal(SIGINT, ctrl_c);
     while (1)
     {
         processes[0].pcount++;
@@ -50,7 +50,7 @@ void process1()
         {
             processes[0].state = 0;
             processes[1].state = 1;
-            running_process = 1;
+            //running_process = 1;
             break;
         }
     }

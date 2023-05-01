@@ -1,8 +1,9 @@
 #include "process.h"
 
+
 void context_switch()
 {
-    int i;
+    int i, running_process = 0;
     for (i = 0; i < 16; i++)
     {
         processes[running_process].registers[i] = rand() % 100;
@@ -27,8 +28,7 @@ void context_switch()
     {
         rand() % 100;
     }
-
-    struct itimerval timer;
+    
     timer.it_value.tv_sec = 1;
     timer.it_value.tv_usec = 0;
     timer.it_interval.tv_sec = 1;

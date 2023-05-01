@@ -1,5 +1,12 @@
 #include "process.h"
-
+void ctrl_c(int sig)
+{
+    if (sig == SIGINT)
+    {
+        printf("CTRL+C.\n");
+        sleep(5);
+    }
+}
 void process3()
 {
     char str[l + 1];
@@ -22,7 +29,7 @@ void process3()
             count++;
         }
     }
-    signal(SIGINT, CTRLC);
+    signal(SIGINT, ctrl_c);
     while (1)
     {
         printf("temdegt mur dotor %d shirheg ijil useg ollo.\n", count);
@@ -36,7 +43,7 @@ void process3()
         {
             processes[2].state = 0;
             processes[0].state = 1;
-            running_process = 0;
+            //running_process = 0;
             break;
         }
         if (kbhit())

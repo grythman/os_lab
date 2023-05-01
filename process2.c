@@ -3,7 +3,7 @@
 #define m 2
 #define n 2
 
-void CTRLC(int sig)
+void ctrl_c(int sig)
 {
     if (sig == SIGINT)
     {
@@ -65,7 +65,7 @@ void process2()
         }
         printf("\n");
     }
-    signal(SIGINT, CTRLC);
+    signal(SIGINT, ctrl_c);
     while (c != 27)
     {
         for (i = 0; i < m; i++)
@@ -92,7 +92,7 @@ void process2()
         {
             processes[1].state = 0;
             processes[2].state = 1;
-            running_process = 2;
+            //running_process = 2;
             break;
         }
     }
