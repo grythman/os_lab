@@ -3,17 +3,9 @@
 #define m 2
 #define n 2
 
-void ctrl_c(int sig)
-{
-    if (sig == SIGINT)
-    {
-        printf("CTRL+C.\n");
-        sleep(5);
-    }
-}
-
 void process2()
 {
+    printf("Process 2 running...\n");
     int A[m][n], B[m][n], C[m][n];
     int i, j;
     char c = ' ';
@@ -65,35 +57,49 @@ void process2()
         }
         printf("\n");
     }
-    signal(SIGINT, ctrl_c);
-    while (c != 27)
+    struct termios oldt, newt;
+    tcgetattr(STDIN_FILENO, &oldt);
+    newt = oldt;
+    newt.c_lflag &= ~(ICANON | ECHO);
+    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+    int flags = fcntl(STDIN_FILENO, F_GETFL, 0);
+    fcntl(STDIN_FILENO, F_SETFL, flags | O_NONBLOCK);
+    while (1)
     {
-        for (i = 0; i < m; i++)
-        {
-            for (j = 0; j < n; j++)
-            {
-                printf("%d ", C[i][j]);
-            }
-            printf("\n");
-        }
-        if (kbhit())
-        {
-            c = getchar();
-            printf("Key pressed: %c\n", c);
-            sleep(5);
-        }
-        processes[1].pcount++;
-        printf("Process 2 running (count = %d)\n", processes[1].pcount);
+        fd_set readfds;
+        FD_ZERO(&readfds);
+        FD_SET(STDIN_FILENO, &readfds);
 
-        srand(time(NULL));
-        int rand_num = rand() % 100;
+        struct timeval timeout;
+        timeout.tv_sec = TIMEOUT_SECONDS;
+        timeout.tv_usec = TIMEOUT_MICROSECONDS;
 
-        if (rand_num % 2 == 0)
-        {
-            processes[1].state = 0;
-            processes[2].state = 1;
-            //running_process = 2;
+        int ready = select(STDIN_FILENO + 1, &readfds, NULL, NULL, &timeout);
+
+        if (ready == -1) {
+            perror("select");
             break;
+        } else if (ready == 0) {
+            printf("loop running...\n");
+        } else {
+            if (read(STDIN_FILENO, &c, 1) == 1) {
+                if (c == 27) { 
+                    printf("ESC key pressed. Stopping the loop.\n");
+                    break;
+                } else {
+                    printf("Key pressed: %c\n", c);
+                }
+            }
         }
+        sleep(1);
+    }
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+    processes[1].process_counter++;
+
+    // Check for process state transition
+    if (processes[1].process_counter >= 15)
+    {
+        processes[1].state = 0;
+        processes[2].state = 1;
     }
 }

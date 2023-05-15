@@ -1,16 +1,8 @@
 #include "process.h"
 
-void ctrl_c()
-{
-    if (27 == )
-    {
-        printf("CTRL+C.\n");
-        exit(0);
-    }
-}
-
 void process1()
 {
+    printf("Process 1 running...\n");
     int n = 10, a[n], i, j, temp;
     srand(time(NULL));
     for (i = 0; i < n; i++)
@@ -37,21 +29,17 @@ void process1()
         printf("%d ", a[i]);
     }
     printf("\n");
-    signal(SIGINT, ctrl_c);
+
     while (1)
     {
-        processes[0].pcount++;
-        printf("Process 1 running (count = %d)\n", processes[0].pcount);
+        signal(SIGINT, ctrl_c);
+        processes[0].process_counter++;
+        printf("loop running...\n");
 
-        srand(time(NULL));
-        int rand_num = rand() % 100;
-
-        if (rand_num % 2 == 0)
+        if (processes[0].process_counter >= 10)
         {
             processes[0].state = 0;
             processes[1].state = 1;
-            //running_process = 1;
-            break;
         }
     }
 }
