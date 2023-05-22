@@ -5,32 +5,35 @@
 #include <unistd.h>
 #include <signal.h>
 #include <time.h>
+#include <setjmp.h>
 #include <string.h>
 #include <termios.h>
 #include <fcntl.h>
 #include <sys/select.h>
 
+#define STACK_SIZE 1024
 #define TIMEOUT_SECONDS 0
 #define TIMEOUT_MICROSECONDS 0
 #define l 10
 
-struct PCB
-{
-    int process_id; //Process ID
-    int priority; //Process Priority
-    int state; //Process State
-    int process_counter; //Process counter value
-    int nextPCB;
-    int registers[16];
-    int memory[8];
-};
+typedef struct {
+    int pid;
+    int pc;
+    int stack[STACK_SIZE];
+    sigjmp_buf jmpbuf;
+} PCB;
+
+PCB *current_process;
+PCB processes[3];
+
 char c;
+volatile sig_atomic_t stop = 0;
 void ctrl_c(int sig)
 {
     if (sig == SIGINT)
     {
         printf("CTRL+C.\n");
-        sleep(0);
+        stop = 1;;
     }
 }
 
@@ -44,10 +47,8 @@ void ctrlcpause(int sig)
     }
 }
 
-struct PCB processes[3];
-int current_process = 0;
 void process1();
 void process2();
 void process3();
-void context_switch();
+void switch_context();
 #endif

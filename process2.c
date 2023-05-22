@@ -5,7 +5,7 @@
 
 void process2()
 {
-    printf("Process 2 running...\n");
+    printf("\nProcess 2 running...\n");
     int A[m][n], B[m][n], C[m][n];
     int i, j;
     char c = ' ';
@@ -91,15 +91,8 @@ void process2()
                 }
             }
         }
-        sleep(1);
+        sleep(5);
+        switch_context();
     }
     tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
-    processes[1].process_counter++;
-
-    // Check for process state transition
-    if (processes[1].process_counter >= 15)
-    {
-        processes[1].state = 0;
-        processes[2].state = 1;
-    }
 }

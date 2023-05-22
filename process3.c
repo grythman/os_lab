@@ -2,7 +2,7 @@
 
 void process3()
 {
-    printf("Process 3 running...\n");
+    printf("\nProcess 3 running...\n");
     char str[l + 1];
     int count = 0;
     const char chr[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -28,14 +28,7 @@ void process3()
     {
 
         printf("temdegt mur dotor %d shirheg ijil useg ollo.\n", count);
-        sleep(1);
-    }
-    processes[2].process_counter++;
-
-    // Check for process state transition
-    if (processes[2].process_counter >= 20)
-    {
-        processes[2].state = 0;
-        processes[0].state = 1;
+        sleep(3);
+        switch_context();
     }
 }

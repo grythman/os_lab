@@ -2,7 +2,7 @@
 
 void process1()
 {
-    printf("Process 1 running...\n");
+    printf("\nProcess 1 running...\n");
     int n = 10, a[n], i, j, temp;
     srand(time(NULL));
     for (i = 0; i < n; i++)
@@ -30,16 +30,11 @@ void process1()
     }
     printf("\n");
 
-    while (1)
+    while (!stop)
     {
         signal(SIGINT, ctrl_c);
-        processes[0].process_counter++;
         printf("loop running...\n");
-
-        if (processes[0].process_counter >= 10)
-        {
-            processes[0].state = 0;
-            processes[1].state = 1;
-        }
+        sleep(10);
+        switch_context();
     }
 }
